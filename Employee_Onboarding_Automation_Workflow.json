@@ -3,46 +3,25 @@
   "nodes": [
     {
       "parameters": {},
-      "id": "e9a10001-0001-4000-8000-000000000001",
-      "name": "Manual_Trigger",
+      "id": "a1906931-6cee-4625-b5f6-ae2d8b6d80c0",
+      "name": "Manual Trigger",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        180,
-        280
+        -256,
+        48
       ]
     },
     {
       "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "0 9 * * 1-5"
-            }
-          ]
-        }
-      },
-      "id": "e9a10001-0002-4000-8000-000000000002",
-      "name": "Schedule_Trigger",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        180,
-        460
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "read",
         "documentId": {
           "__rl": true,
-          "value": "Employee_Onboarding_Register",
-          "mode": "name"
+          "value": "1GijZ1L9jKFnI9bnC58FbiGYTNLQcGrxRnQgqHQk0LZw",
+          "mode": "id"
         },
         "sheetName": {
           "__rl": true,
-          "value": "Sheet1",
+          "value": "Employee Onboarding Register",
           "mode": "name"
         },
         "filtersUI": {
@@ -55,34 +34,40 @@
         },
         "options": {}
       },
-      "id": "e9a10001-0003-4000-8000-000000000003",
-      "name": "Google_Sheets_ReadPendingHires",
+      "id": "5c6c94e5-2c0d-4993-bf2f-c1c87bddb3b9",
+      "name": "Get Pending Employees",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        460,
-        360
-      ]
+        -32,
+        48
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SVDdlw9oQ4MhVuuI",
+          "name": "Abhishek Google Sheet"
+        }
+      }
     },
     {
       "parameters": {
-        "batchSize": 1,
         "options": {}
       },
-      "id": "e9a10001-0004-4000-8000-000000000004",
-      "name": "Split_in_Batches",
+      "id": "154a5c57-8f81-4ebf-a024-bcfbd0d697b9",
+      "name": "Split in Batches",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        720,
-        360
+        192,
+        48
       ]
     },
     {
       "parameters": {
-        "mode": "rules",
+        "dataType": "string",
+        "value1": "={{ $json.Department }}",
         "rules": {
-          "values": [
+          "rules": [
             {
               "conditions": {
                 "options": {
@@ -127,34 +112,28 @@
             }
           ]
         },
-        "options": {
-          "fallbackOutput": 2
-        }
+        "fallbackOutput": 2
       },
-      "id": "e9a10001-0005-4000-8000-000000000005",
-      "name": "Switch_RouteByDepartment",
+      "id": "86cdb31a-ad9b-4c8b-ad00-4d787fb39f63",
+      "name": "Switch Department",
       "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
+      "typeVersion": 1,
       "position": [
-        980,
-        280
+        416,
+        48
       ]
     },
     {
       "parameters": {
-        "mode": "manual",
-        "duplicateItem": false,
-        "fields": {
-          "values": [
+        "values": {
+          "string": [
             {
-              "name": "Employee_ID",
-              "type": "string",
-              "value": "={{ $json.Employee_ID }}"
+              "name": "kit_title",
+              "value": "Engineering Onboarding & DevOps Kit"
             },
             {
-              "name": "Full_Name",
-              "type": "string",
-              "value": "={{ $json.Full_Name }}"
+              "name": "email_subject",
+              "value": "=Welcome to the Engineering Team, {{ $json.Full_Name }}!"
             },
             {
               "name": "Personal_Email",
@@ -205,30 +184,26 @@
         },
         "options": {}
       },
-      "id": "e9a10001-0006-4000-8000-000000000006",
-      "name": "Set_Engineering_Materials",
+      "id": "f5be8358-b664-4307-bdf1-e7897835ac3a",
+      "name": "Build Engineering Package",
       "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "typeVersion": 2,
       "position": [
-        1240,
-        140
+        656,
+        -128
       ]
     },
     {
       "parameters": {
-        "mode": "manual",
-        "duplicateItem": false,
-        "fields": {
-          "values": [
+        "values": {
+          "string": [
             {
-              "name": "Employee_ID",
-              "type": "string",
-              "value": "={{ $json.Employee_ID }}"
+              "name": "kit_title",
+              "value": "Sales Playbook & CRM Access Kit"
             },
             {
-              "name": "Full_Name",
-              "type": "string",
-              "value": "={{ $json.Full_Name }}"
+              "name": "email_subject",
+              "value": "=Welcome to the Sales Team, {{ $json.Full_Name }}!"
             },
             {
               "name": "Personal_Email",
@@ -279,30 +254,26 @@
         },
         "options": {}
       },
-      "id": "e9a10001-0007-4000-8000-000000000007",
-      "name": "Set_Sales_Materials",
+      "id": "e1b1c33b-efc0-455e-899f-50e06759bd28",
+      "name": "Build Sales Package",
       "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "typeVersion": 2,
       "position": [
-        1240,
-        280
+        656,
+        48
       ]
     },
     {
       "parameters": {
-        "mode": "manual",
-        "duplicateItem": false,
-        "fields": {
-          "values": [
+        "values": {
+          "string": [
             {
-              "name": "Employee_ID",
-              "type": "string",
-              "value": "={{ $json.Employee_ID }}"
+              "name": "kit_title",
+              "value": "Corporate HR Handbook & Operations Kit"
             },
             {
-              "name": "Full_Name",
-              "type": "string",
-              "value": "={{ $json.Full_Name }}"
+              "name": "email_subject",
+              "value": "=Welcome to the Company, {{ $json.Full_Name }}!"
             },
             {
               "name": "Personal_Email",
@@ -353,47 +324,62 @@
         },
         "options": {}
       },
-      "id": "e9a10001-0008-4000-8000-000000000008",
-      "name": "Set_HROps_Materials",
+      "id": "e47c2d3c-a5b3-4385-b464-74dfc311119f",
+      "name": "Build Operations Package",
       "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "typeVersion": 2,
       "position": [
-        1240,
-        420
+        656,
+        304
       ]
     },
     {
       "parameters": {
-        "sendTo": "={{ $json.Personal_Email }}",
-        "subject": "={{ $json.emailSubject }}",
-        "emailType": "html",
-        "message": "={{ $json.emailHtml }}",
+        "sendTo": "={{ $('Split in Batches').item.json.Personal_Email }}",
+        "subject": "={{ $json.email_subject }}",
+        "message": "={{ $json.email_html }}",
         "options": {}
       },
-      "id": "e9a10001-0009-4000-8000-000000000009",
-      "name": "Gmail_SendWelcomeEmail",
+      "id": "547a7014-bcb8-4987-b224-729713339e27",
+      "name": "Send Gmail Welcome Package",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        1520,
-        280
-      ]
+        912,
+        48
+      ],
+      "webhookId": "13f3eb92-ce83-4973-b60e-b8f6ada2c07c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uaiSQRxio79ZwpS1",
+          "name": "Abhishek - Gmail Credential"
+        }
+      }
     },
     {
       "parameters": {
         "operation": "update",
         "documentId": {
           "__rl": true,
-          "value": "Employee_Onboarding_Register",
-          "mode": "name"
+          "value": "1GijZ1L9jKFnI9bnC58FbiGYTNLQcGrxRnQgqHQk0LZw",
+          "mode": "id"
         },
         "sheetName": {
           "__rl": true,
-          "value": "Sheet1",
+          "value": "Employee Onboarding Register",
           "mode": "name"
         },
         "columns": {
           "mappingMode": "defineBelow",
+          "value": {
+            "Employee_ID": "={{ $('Build Engineering Package').item.json.Employee_ID }}",
+            "Full_Name": "={{ $('Build Engineering Package').item.json.Full_Name }}",
+            "Department": "={{ $('Build Engineering Package').item.json.Department }}",
+            "Personal_Email": "={{ $('Build Engineering Package').item.json.Personal_Email }}",
+            "Role_Title": "={{ $('Build Engineering Package').item.json.Role_Title }}",
+            "Status": "={{ $('Build Engineering Package').item.json.Status }}",
+            "Processed_At": "={{ $('Build Engineering Package').item.json.Processed_At }}"
+          },
           "matchingColumns": [
             "Employee_ID"
           ],
@@ -401,35 +387,77 @@
             {
               "id": "Employee_ID",
               "displayName": "Employee_ID",
-              "required": true,
-              "defaultMatch": true,
-              "canBeUsedToMatch": true,
+              "required": false,
+              "defaultMatch": false,
               "display": true,
               "type": "string",
-              "readOnly": false,
+              "canBeUsedToMatch": true,
               "removed": false
+            },
+            {
+              "id": "Full_Name",
+              "displayName": "Full_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Personal_Email",
+              "displayName": "Personal_Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Department",
+              "displayName": "Department",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Role_Title",
+              "displayName": "Role_Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
             },
             {
               "id": "Status",
               "displayName": "Status",
               "required": false,
               "defaultMatch": false,
-              "canBeUsedToMatch": false,
               "display": true,
               "type": "string",
-              "readOnly": false,
-              "removed": false
+              "canBeUsedToMatch": true
             },
             {
               "id": "Processed_At",
               "displayName": "Processed_At",
               "required": false,
               "defaultMatch": false,
-              "canBeUsedToMatch": false,
               "display": true,
               "type": "string",
-              "readOnly": false,
-              "removed": false
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
             }
           ],
           "value": {
@@ -440,8 +468,8 @@
         },
         "options": {}
       },
-      "id": "e9a10001-0010-4000-8000-000000000010",
-      "name": "Google_Sheets_UpdateRow",
+      "id": "5c6a9e6a-39ed-4048-981f-88695aac0a88",
+      "name": "Update Status to Onboarded",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
@@ -572,131 +600,120 @@
     ]
   },
   "connections": {
-    "Manual_Trigger": {
+    "Manual Trigger": {
       "main": [
         [
           {
-            "node": "Google_Sheets_ReadPendingHires",
+            "node": "Get Pending Employees",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Schedule_Trigger": {
+    "Get Pending Employees": {
       "main": [
         [
           {
-            "node": "Google_Sheets_ReadPendingHires",
+            "node": "Split in Batches",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Google_Sheets_ReadPendingHires": {
+    "Split in Batches": {
       "main": [
         [
           {
-            "node": "Split_in_Batches",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Split_in_Batches": {
-      "main": [
-        [
-          {
-            "node": "Switch_RouteByDepartment",
+            "node": "Switch Department",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Gmail_HRAdminNotification",
+            "node": "Switch Department",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Switch_RouteByDepartment": {
+    "Switch Department": {
       "main": [
         [
           {
-            "node": "Set_Engineering_Materials",
+            "node": "Build Engineering Package",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Set_Sales_Materials",
+            "node": "Build Sales Package",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Set_HROps_Materials",
+            "node": "Build Operations Package",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Set_Engineering_Materials": {
+    "Build Engineering Package": {
       "main": [
         [
           {
-            "node": "Gmail_SendWelcomeEmail",
+            "node": "Send Gmail Welcome Package",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Set_Sales_Materials": {
+    "Build Sales Package": {
       "main": [
         [
           {
-            "node": "Gmail_SendWelcomeEmail",
+            "node": "Send Gmail Welcome Package",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Set_HROps_Materials": {
+    "Build Operations Package": {
       "main": [
         [
           {
-            "node": "Gmail_SendWelcomeEmail",
+            "node": "Send Gmail Welcome Package",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Gmail_SendWelcomeEmail": {
+    "Send Gmail Welcome Package": {
       "main": [
         [
           {
-            "node": "Google_Sheets_UpdateRow",
+            "node": "Update Status to Onboarded",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Google_Sheets_UpdateRow": {
+    "Update Status to Onboarded": {
       "main": [
         [
           {
-            "node": "Split_in_Batches",
+            "node": "Split in Batches",
             "type": "main",
             "index": 0
           }
@@ -706,11 +723,13 @@
   },
   "active": false,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "f9d0e1f2-8b6a-4c1e-9905-onboardingdispatcher",
+  "versionId": "f5784949-752d-475e-aa86-351ffd2a832b",
   "meta": {
-    "instanceId": "tayana-enterprise-n8n-level-2-topic-9"
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a03c7678428ef19ededbf912f16f7d5798ec7b9ab4c17f2a2def6a9e791e7215"
   },
   "id": "N8N_PRJ_03_Employee_Onboarding",
   "tags": [
